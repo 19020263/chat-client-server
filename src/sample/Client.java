@@ -30,7 +30,7 @@ public class Client extends Application {
 
         window.setOnCloseRequest(event -> closeProgram());
 
-        //window.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        window.getIcons().add(new Image(getClass().getResourceAsStream("clientIcon.png")));
         assert root != null;
         window.setScene(new Scene(root, 600, 400));
         window.setResizable(false);

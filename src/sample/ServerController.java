@@ -28,6 +28,7 @@ public class ServerController {
     private Button btnSendMessage;
 
     public void initialize() {
+        messField.setEditable(false);
     }
 
     public void btnListenClicked(ActionEvent event) {
@@ -37,11 +38,12 @@ public class ServerController {
 
             Thread thread = new Thread(() -> {
               try {
-                  messArea.setText(messArea.getText() + "\n" + "Listening on port " + port + " ...");
+                  messArea.setText(messArea.getText() + "\nListening on port " + port + " ...");
 
                   Socket socket = serverSocket.accept();
-                  messArea.setText(messArea.getText() + "\n" + "Connected to Client!");
+                  messArea.setText(messArea.getText() + "\nConnected to Client!");
                   messageSocket = new ChatMessageSocket(name, socket, messArea);
+                  messField.setEditable(true);
               } catch (IOException e) {
                   messArea.setText(messArea.getText() + "\nError: " + e.getMessage());
                   e.printStackTrace();

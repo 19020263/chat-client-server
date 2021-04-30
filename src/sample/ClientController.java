@@ -29,6 +29,7 @@ public class ClientController {
     private Button btnSendMessage;
 
     public void initialize() {
+        messField.setEditable(false);
     }
 
     public void btnConnectClicked(ActionEvent event) {
@@ -41,6 +42,7 @@ public class ClientController {
             Socket socket = new Socket(IPAddress, port);
             messageSocket = new ChatMessageSocket(name, socket, messArea);
             messArea.setText(messArea.getText() + "\nConnected to Server!");
+            messField.setEditable(true);
         } catch (Exception e) {
             messArea.setText(messArea.getText() + "\nError: " + e.getMessage());
             e.printStackTrace();
