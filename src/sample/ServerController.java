@@ -32,12 +32,33 @@ public class ServerController {
     private Button btnSendMessage;
 
     public void initialize() {
+        messField.setEditable(false);
     }
 
     public void btnListenClicked(ActionEvent event) {
         try {
+// PHẦN CỦA TÔI
             serverSocket = new ServerSocket(DEFAULT_PORT);
             ServerThread thread = new ServerThread();
+
+// PHẦN CỦA GIÁO SƯ
+//            int port = Integer.parseInt(portField.getText());
+//            ServerSocket serverSocket = new ServerSocket(port);
+//
+//            Thread thread = new Thread(() -> {
+//              try {
+//                  messArea.setText(messArea.getText() + "\nListening on port " + port + " ...");
+//
+//                  Socket socket = serverSocket.accept();
+//                  messArea.setText(messArea.getText() + "\nConnected to Client!");
+//                  messageSocket = new ChatMessageSocket(name, socket, messArea);
+//                  messField.setEditable(true);
+//              } catch (IOException e) {
+//                  messArea.setText(messArea.getText() + "\nError: " + e.getMessage());
+//                  e.printStackTrace();
+//              }
+//            });
+//>>>>>>> 193d383eba940d5aaad12689e9e64c4f95a32440
             thread.start();
         } catch (Exception e) {
             messArea.setText(messArea.getText() + "\nError: " + e.getMessage());

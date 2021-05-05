@@ -66,7 +66,9 @@ public class ServerMain {
                     System.out.println(message);
 
                     for (ServerThread thread : threads) {
-                        thread.send(message);
+                        if (thread.socket.getPort() != socket.getPort()) {
+                            thread.send(message);
+                        }
                     }
 //                    sender.write(message);
 //                    sender.newLine();

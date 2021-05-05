@@ -11,7 +11,7 @@ import java.net.Socket;
 
 public class AnotherClientController extends ClientController {
     private ChatMessageSocket messageSocket;
-    private String name;
+    private String anotherName;
 
     @FXML
     private TextField IPField;
@@ -36,18 +36,15 @@ public class AnotherClientController extends ClientController {
 //    }
 
     public void initialize() {
-        name = "anotherClient";
+        anotherName = "anotherClient";
     }
 
     public void btnConnectClicked(ActionEvent event) {
         try {
             int port = Integer.parseInt(portField.getText());
-//            String IPAddress = IPField.getText();
-//
-//            msgDisplay.setText(msgDisplay.getText() + "\nConnecting to " + IPAddress + " on port " + port);
             writeMessageToDisplay("Connecting to localhost...");
             Socket socket = new Socket("localhost", port);
-            messageSocket = new ChatMessageSocket(name, "Client", socket, this);
+            messageSocket = new ChatMessageSocket(anotherName, "Client", socket, this);
             writeMessageToDisplay("Connected to Server!");
         } catch (Exception e) {
             String errorMsg = "Error: " + e.getMessage();

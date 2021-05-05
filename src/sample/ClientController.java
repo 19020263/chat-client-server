@@ -35,18 +35,27 @@ public class ClientController {
 
     public void initialize() {
         name = "Client";
+        msgDisplay.setEditable(false);
     }
 
     public void btnConnectClicked(ActionEvent event) {
         try {
             int port = Integer.parseInt(portField.getText());
-//            String IPAddress = IPField.getText();
-//            msgDisplay.setText(msgDisplay.getText() + "\nConnecting to " + IPAddress + " on port " + port);
-//            Socket socket = new Socket(IPAddress, port);
+// PHẦN CỦA TÔI
             writeMessageToDisplay("Connecting to localhost...");
             Socket socket = new Socket("localhost", port);
             messageSocket = new ChatMessageSocket(name, "anotherClient", socket, this);
             writeMessageToDisplay("Connected to Server!");
+// PHẦN CỦA GIÁO SƯ
+//            String IPAddress = IPField.getText();
+//
+//            messArea.setText(messArea.getText() + "\nConnecting to " + IPAddress + " on port " + port);
+//
+//            Socket socket = new Socket(IPAddress, port);
+//            messageSocket = new ChatMessageSocket(name, socket, messArea);
+//            messArea.setText(messArea.getText() + "\nConnected to Server!");
+//            messField.setEditable(true);
+//>>>>>>> 193d383eba940d5aaad12689e9e64c4f95a32440
         } catch (Exception e) {
             String errorMsg = "Error: " + e.getMessage();
             writeMessageToDisplay(errorMsg);

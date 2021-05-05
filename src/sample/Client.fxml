@@ -22,12 +22,18 @@
       <AnchorPane prefHeight="438.0" prefWidth="605.0">
          <children>
             <Button fx:id="btnConnect" layoutX="527.0" layoutY="28.0" mnemonicParsing="false" onAction="#btnConnectClicked" text="Connect" />
+<!--PHẦN CỦA TÔI-->
             <Button fx:id="btnSendMessage" layoutX="526.0" layoutY="363.0" mnemonicParsing="false" onAction="#btnSendMessageClicked" prefHeight="35.0" prefWidth="60.0" text="Send" />
             <TextArea fx:id="msgDisplay" editable="false" layoutX="14.0" layoutY="88.0" prefHeight="263.0" prefWidth="574.0" />
+<!--PHẦN CỦA GIÁO SƯ-->
+<!--            <Button fx:id="btnSendMessage" layoutX="527.0" layoutY="358.0" mnemonicParsing="false" onAction="#btnSendMessageClicked" prefHeight="35.0" prefWidth="60.0" text="Send" />-->
+<!--            <TextArea fx:id="messArea" editable="false" layoutX="14.0" layoutY="88.0" prefHeight="263.0" prefWidth="574.0" wrapText="true" />-->
+<!--            <TextField fx:id="messField" layoutX="80.0" layoutY="363.0" onAction="#btnSendMessageClicked" prefHeight="25.0" prefWidth="433.0" />-->
+<!--&gt;>>>>>> 193d383eba940d5aaad12689e9e64c4f95a32440-->
             <Separator layoutY="71.0" prefHeight="0.0" prefWidth="600.0" />
             <Label alignment="CENTER" layoutX="14.0" layoutY="363.0" prefHeight="25.0" prefWidth="60.0" text="Client" />
-            <Label alignment="CENTER" layoutX="262.0" layoutY="28.0" prefHeight="25.0" prefWidth="60.0" text="IP Address" />
-            <TextField fx:id="IPField" layoutX="331.0" layoutY="28.0" prefHeight="25.0" prefWidth="91.0" promptText="192.168.56.1" text="192.168.56.1" />
+            <Label alignment="CENTER" layoutX="253.0" layoutY="28.0" prefHeight="25.0" prefWidth="60.0" text="IP Address" />
+            <TextField fx:id="IPField" layoutX="315.0" layoutY="28.0" prefHeight="25.0" prefWidth="107.0" promptText="192.168.56.1" text="127.0.0.1" />
             <Label alignment="CENTER" layoutX="425.0" layoutY="28.0" prefHeight="25.0" prefWidth="31.0" text="Port" />
             <TextField fx:id="portField" layoutX="459.0" layoutY="28.0" prefHeight="25.0" prefWidth="60.0" promptText="192.168.56.1" text="9888" />
             <Label alignment="CENTER" layoutX="5.0" layoutY="9.0" prefHeight="57.0" prefWidth="180.0" text="Client Chat" textFill="#0f29ee">

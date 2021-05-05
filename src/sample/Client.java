@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class Client extends Application {
         window.setTitle("Chat Client");
         window.setOnCloseRequest(event -> closeProgram());
 
-        //window.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        window.getIcons().add(new Image(getClass().getResourceAsStream("clientIcon.png")));
         assert root != null;
         window.setScene(new Scene(root, 605, 438));
         window.setResizable(false);
