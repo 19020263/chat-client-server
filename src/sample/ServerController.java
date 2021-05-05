@@ -7,10 +7,14 @@ import javafx.scene.control.*;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class ServerController {
     private ChatMessageSocket messageSocket;
     private final String name = "Server";
+    private ServerSocket serverSocket;
+    private final int DEFAULT_PORT = 9888;
+    private final ArrayList<ServerThread> threads = new ArrayList<>();
 
     @FXML
     private TextField portField;
@@ -32,21 +36,8 @@ public class ServerController {
 
     public void btnListenClicked(ActionEvent event) {
         try {
-            int port = Integer.parseInt(portField.getText());
-            ServerSocket serverSocket = new ServerSocket(port);
-
-            Thread thread = new Thread(() -> {
-              try {
-                  messArea.setText(messArea.getText() + "\n" + "Listening on port " + port + " ...");
-
-                  Socket socket = serverSocket.accept();
-                  messArea.setText(messArea.getText() + "\n" + "Connected to Client!");
-                  messageSocket = new ChatMessageSocket(name, socket, messArea);
-              } catch (IOException e) {
-                  messArea.setText(messArea.getText() + "\nError: " + e.getMessage());
-                  e.printStackTrace();
-              }
-            });
+            serverSocket = new ServerSocket(DEFAULT_PORT);
+            ServerThread thread = new ServerThread();
             thread.start();
         } catch (Exception e) {
             messArea.setText(messArea.getText() + "\nError: " + e.getMessage());
@@ -54,11 +45,37 @@ public class ServerController {
         }
     }
 
-    public void btnSendMessageClicked(ActionEvent event) {
+    public void btnSendMessageClicked(ActionEvent event) throws IOException {
         if (messField.getText().equals("")) {
             return;
         }
         messageSocket.send(messField.getText());
         messField.clear();
+    }
+
+    public TextArea getMessArea() {
+        return messArea;
+    }
+
+    public TextField getPortField() {
+        return portField;
+    }
+
+    private class ServerThread extends Thread {
+        private String srcName;
+        private String dstName;
+
+        @Override
+        public void run() {
+            try {
+                messArea.setText(messArea.getText() + "\n" + "Listening on port " + DEFAULT_PORT + " ...");
+                Socket socket = serverSocket.accept();
+                messArea.setText(messArea.getText() + "\n" + "Connected to Client!");
+//                messageSocket = new ChatMessageSocket(name, socket, this);
+            } catch (IOException e) {
+                messArea.setText(messArea.getText() + "\nError: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
     }
 }

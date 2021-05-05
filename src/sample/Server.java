@@ -5,9 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Server extends Application {
 
@@ -22,17 +22,16 @@ public class Server extends Application {
         window = primaryStage;
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("Server.fxml"));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Server.fxml")));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        window.setTitle("Chat Server");
 
+        window.setTitle("Chat Server");
         window.setOnCloseRequest(event -> closeProgram());
 
-        //window.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         assert root != null;
-        window.setScene(new Scene(root, 600, 400));
+        window.setScene(new Scene(root, 605, 438));
         window.setResizable(false);
         window.show();
     }

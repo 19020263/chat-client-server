@@ -9,8 +9,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class Client extends Application {
-
+public class AnotherClient extends Application {
     Stage window;
 
     public static void main(String[] args) {
@@ -21,14 +20,13 @@ public class Client extends Application {
     public void start(Stage primaryStage) {
         window = primaryStage;
         Parent root = null;
-
         try {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Client.fxml")));
         } catch (IOException e) {
             e.printStackTrace();
         }
+        window.setTitle("Chat AnotherClient");
 
-        window.setTitle("Chat Client");
         window.setOnCloseRequest(event -> closeProgram());
 
         //window.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));

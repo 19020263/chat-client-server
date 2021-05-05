@@ -1,27 +1,36 @@
 package sample;
 
-import javafx.scene.control.TextArea;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
 public class ChatMessageSocket {
     private Socket socket;
     private BufferedReader in;
     private PrintWriter out;
-    private TextArea messArea;
+    private ClientController controller;
+//    private ObjectInputStream inputStream;
+//    private ObjectOutputStream outputStream;
     private String name;
+    private String dstName;
 
-    public ChatMessageSocket(String name, Socket socket, TextArea messArea) throws IOException {
+    public ChatMessageSocket(
+        String name,
+        String dstName,
+        Socket socket,
+        ClientController controller
+    ) throws IOException {
         this.socket = socket;
-        this.messArea = messArea;
         this.name = name;
+        this.dstName = dstName;
+        this.controller = controller;
 
         out = new PrintWriter(socket.getOutputStream());
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+//        inputStream = new ObjectInputStream(socket.getInputStream());
+//        outputStream = new ObjectOutputStream(socket.getOutputStream());
+
+        System.out.println(socket.toString());
 
         receive();
     }
@@ -30,25 +39,33 @@ public class ChatMessageSocket {
         Thread thread = new Thread(() -> {
             while (true) {
                 try {
+//                    Message msgToReceive = (Message) inputStream.readObject();
+//                    String message = msgToReceive.getMessageContent();
                     String message = in.readLine();
                     if (message != null) {
-                        messArea.setText(messArea.getText() + "\n" + message);
+                        controller.writeMessageToDisplay(message);
                     }
 
                 } catch (IOException e) {
-                    messArea.setText(messArea.getText() + "\nError: " + e.getMessage());
+                    String errorMsg = "Error: " + e.getMessage();
+                    controller.writeMessageToDisplay(errorMsg);
                     e.printStackTrace();
                 }
+//                } catch (ClassNotFoundException e) {
+//                    e.printStackTrace();
+//                }
             }
         });
         thread.start();
     }
 
-    public void send(String msg) {
-        msg = name + ": " + msg;
-        messArea.setText(messArea.getText() + "\n" + msg);
-        out.println(msg);
+    public void send(String msg) throws IOException {
+//        Message msgToSend = new Message(name, dstName, msg);
+        String msgToDisplay = name + ": " + msg;
+        controller.writeMessageToDisplay(msgToDisplay);
+        out.println(msgToDisplay);
         out.flush();
+//        outputStream.writeObject(msgToSend);
     }
 
     public void close() {
@@ -56,6 +73,8 @@ public class ChatMessageSocket {
             out.close();
             in.close();
             socket.close();
+//            inputStream.close();
+//            outputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
