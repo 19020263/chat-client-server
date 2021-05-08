@@ -1,17 +1,18 @@
-package sample;
+package sample.controller.client;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import sample.ChatMessageSocket;
 
 import java.io.IOException;
 import java.net.Socket;
 
 public class AnotherClientController extends ClientController {
     private ChatMessageSocket messageSocket;
-    private String anotherName;
+    private String name;
 
     @FXML
     private TextField IPField;
@@ -31,12 +32,8 @@ public class AnotherClientController extends ClientController {
     @FXML
     private Button btnSendMessage;
 
-//    public void writeMessageToDisplay(String message) {
-//        msgDisplay.setText(msgDisplay.getText() + message + "\n");
-//    }
-
     public void initialize() {
-        anotherName = "anotherClient";
+        msgDisplay.setEditable(false);
     }
 
     public void btnConnectClicked(ActionEvent event) {
@@ -44,7 +41,8 @@ public class AnotherClientController extends ClientController {
             int port = Integer.parseInt(portField.getText());
             writeMessageToDisplay("Connecting to localhost...");
             Socket socket = new Socket("localhost", port);
-            messageSocket = new ChatMessageSocket(anotherName, "Client", socket, this);
+            name = "Bob";
+            messageSocket = new ChatMessageSocket(name, "Client", socket, this);
             writeMessageToDisplay("Connected to Server!");
         } catch (Exception e) {
             String errorMsg = "Error: " + e.getMessage();
@@ -57,6 +55,7 @@ public class AnotherClientController extends ClientController {
         if (msgInput.getText().equals("")) {
             return;
         }
+
         messageSocket.send(msgInput.getText());
         msgInput.clear();
     }

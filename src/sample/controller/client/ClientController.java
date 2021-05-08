@@ -1,8 +1,9 @@
-package sample;
+package sample.controller.client;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import sample.ChatMessageSocket;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -34,28 +35,17 @@ public class ClientController {
     }
 
     public void initialize() {
-        name = "Client";
         msgDisplay.setEditable(false);
     }
 
     public void btnConnectClicked(ActionEvent event) {
         try {
             int port = Integer.parseInt(portField.getText());
-// PHẦN CỦA TÔI
             writeMessageToDisplay("Connecting to localhost...");
             Socket socket = new Socket("localhost", port);
+            name = "Alice";
             messageSocket = new ChatMessageSocket(name, "anotherClient", socket, this);
             writeMessageToDisplay("Connected to Server!");
-// PHẦN CỦA GIÁO SƯ
-//            String IPAddress = IPField.getText();
-//
-//            messArea.setText(messArea.getText() + "\nConnecting to " + IPAddress + " on port " + port);
-//
-//            Socket socket = new Socket(IPAddress, port);
-//            messageSocket = new ChatMessageSocket(name, socket, messArea);
-//            messArea.setText(messArea.getText() + "\nConnected to Server!");
-//            messField.setEditable(true);
-//>>>>>>> 193d383eba940d5aaad12689e9e64c4f95a32440
         } catch (Exception e) {
             String errorMsg = "Error: " + e.getMessage();
             writeMessageToDisplay(errorMsg);
@@ -67,6 +57,7 @@ public class ClientController {
         if (msgInput.getText().equals("")) {
             return;
         }
+
         messageSocket.send(msgInput.getText());
         msgInput.clear();
     }

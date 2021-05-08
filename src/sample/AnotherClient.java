@@ -22,15 +22,14 @@ public class AnotherClient extends Application {
         window = primaryStage;
         Parent root = null;
         try {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Client.fxml")));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("controller/Client/AnotherClient.fxml")));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        window.setTitle("Chat AnotherClient");
 
+        window.setTitle("To Alice");
         window.setOnCloseRequest(event -> closeProgram());
-
-        window.getIcons().add(new Image(getClass().getResourceAsStream("clientIcon.png")));
+        window.getIcons().add(new Image("images/clientIcon.png"));
         assert root != null;
         window.setScene(new Scene(root, 605, 438));
         window.setResizable(false);

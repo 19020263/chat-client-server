@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class Client extends Application {
-
     Stage window;
 
     public static void main(String[] args) {
@@ -24,15 +23,14 @@ public class Client extends Application {
         Parent root = null;
 
         try {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Client.fxml")));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("controller/Client/Client.fxml")));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        window.setTitle("Chat Client");
+        window.setTitle("To Bob");
         window.setOnCloseRequest(event -> closeProgram());
-
-        window.getIcons().add(new Image(getClass().getResourceAsStream("clientIcon.png")));
+        window.getIcons().add(new Image("images/clientIcon.png"));
         assert root != null;
         window.setScene(new Scene(root, 605, 438));
         window.setResizable(false);
