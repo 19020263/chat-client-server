@@ -8,11 +8,13 @@ import javafx.scene.control.TextField;
 import sample.ChatMessageSocket;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 
 public class AnotherClientController extends ClientController {
     private ChatMessageSocket messageSocket;
     private String name;
+    private Socket socket;
 
     @FXML
     private TextField IPField;
@@ -33,6 +35,7 @@ public class AnotherClientController extends ClientController {
     private Button btnSendMessage;
 
     public void initialize() {
+        socket = new Socket();
         msgDisplay.setEditable(false);
     }
 
@@ -40,7 +43,7 @@ public class AnotherClientController extends ClientController {
         try {
             int port = Integer.parseInt(portField.getText());
             writeMessageToDisplay("Connecting to localhost...");
-            Socket socket = new Socket("localhost", port);
+            socket.bind(new InetSocketAddress("localhost", port));
             name = "Bob";
             messageSocket = new ChatMessageSocket(name, "Client", socket, this);
             writeMessageToDisplay("Connected to Server!");
@@ -51,12 +54,16 @@ public class AnotherClientController extends ClientController {
         }
     }
 
-    public void btnSendMessageClicked(ActionEvent event) throws IOException {
+    public void btnSendMessageClicked(ActionEvent event) {
         if (msgInput.getText().equals("")) {
             return;
         }
 
         messageSocket.send(msgInput.getText());
         msgInput.clear();
+    }
+
+    public void closeSocket() throws IOException {
+        socket.close();
     }
 }

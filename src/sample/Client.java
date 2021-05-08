@@ -6,12 +6,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import sample.controller.client.ClientController;
 
 import java.io.IOException;
 import java.util.Objects;
 
 public class Client extends Application {
-    Stage window;
+    private Stage window;
+    private FXMLLoader loader;
 
     public static void main(String[] args) {
         launch(args);
@@ -23,7 +25,8 @@ public class Client extends Application {
         Parent root = null;
 
         try {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("controller/Client/Client.fxml")));
+            loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("controller/client/AnotherClient.fxml")));
+            root = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,6 +43,8 @@ public class Client extends Application {
     public void closeProgram() {
         try {
             window.close();
+            ClientController controller = loader.getController();
+            controller.closeSocket();
         } catch (Exception e) {
             e.printStackTrace();
         }
