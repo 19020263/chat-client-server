@@ -25,7 +25,7 @@ public class Client extends Application {
         Parent root = null;
 
         try {
-            loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("controller/client/AnotherClient.fxml")));
+            loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("controller/client/Client.fxml")));
             root = loader.load();
         } catch (IOException e) {
             e.printStackTrace();

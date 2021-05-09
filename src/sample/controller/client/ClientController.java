@@ -39,6 +39,7 @@ public class ClientController {
     public void initialize() {
         socket = new Socket();
         msgDisplay.setEditable(false);
+        msgInput.setEditable(false);
     }
 
     public void btnConnectClicked(ActionEvent event) {
@@ -49,6 +50,7 @@ public class ClientController {
             name = "Alice";
             messageSocket = new ChatMessageSocket(name, "anotherClient", socket, this);
             writeMessageToDisplay("Connected to Server!");
+            msgInput.setEditable(true);
         } catch (Exception e) {
             String errorMsg = "Error: " + e.getMessage();
             writeMessageToDisplay(errorMsg);
